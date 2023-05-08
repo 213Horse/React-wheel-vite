@@ -87,8 +87,8 @@ export default function App() {
     }
 
     function handleShowUsers() {
-        // setPopup(<UserList users={users} />);
-        setPopup(<FlipCard />);
+        setPopup(<UserList users={users} />);
+        // setPopup(<FlipCard />);
     }
 
     return (
@@ -104,8 +104,8 @@ export default function App() {
             <main className="w-180 mx-auto py-5 bg-blue-300">
                 <section>
                     {
-                        // appState == 2 && users &&
-                        true &&
+                        appState == 2 && users &&
+                        // true &&
                         <ShowUsersButton handleClick={handleShowUsers} />
                     }
                     <Image className="w-150" src="dau-qua.png" />
