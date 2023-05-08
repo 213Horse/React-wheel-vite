@@ -24,11 +24,43 @@ export default function UserInfoForm({
             phoneNumber: null,
         });
 
-        if (/^\d{0,11}$/.test(value))
+        if (/^\+?\d{0,3}\s?\d{0,13}$/.test(value))
             setUserInfo({
                 ...userInfo,
                 phoneNumber: value,
             });
+
+        // let input = e.target.value;
+        // input = input.replace(/\D/g, ""); // Remove all non-digit characters
+
+        // // Format the phone number
+        // let formattedPhoneNumber = "";
+
+        // if (input.length > 0) {
+        //     formattedPhoneNumber = "+";
+
+        // if (input.length > 3) {
+        //     formattedPhoneNumber += input.slice(0, 3) + " ";
+        //     input = input.slice(3);
+        // }
+
+        // if (input.length > 3) {
+        //     formattedPhoneNumber += "(" + input.slice(0, 3) + ") ";
+        //     input = input.slice(3);
+        // }
+
+        // if (input.length > 2) {
+        //     formattedPhoneNumber += input.slice(0, 2) + " ";
+        //     input = input.slice(2);
+        // }
+
+        // formattedPhoneNumber += input;
+        // }
+
+        // setUserInfo({
+        //     ...userInfo,
+        //     phoneNumber: formattedPhoneNumber,
+        // });
     }
 
     function handleChangeInfo(e) {

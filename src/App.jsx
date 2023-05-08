@@ -12,6 +12,7 @@ import useUsers from './hooks/useUsers';
 import ShowUsersButton from './components/ShowUsersButton';
 import Spinner from './components/Spinner';
 import UserList from './components/UserList';
+import axios from 'axios';
 
 
 export default function App() {
@@ -29,26 +30,40 @@ export default function App() {
                 />
             );
         }
-
         else if (appState == 1) {
             if (selectedGiftId == null)
                 setSelectedGiftId(giftId);
 
-            const errorMessage = await handleSubmitData();
-            console.log("errorMessage", errorMessage);
-            // ERROR
-            if (errorMessage) { 
-                setPopup(<Notification title="Lỗi" content={errorMessage} />)
-                setAppState(0);
-                setSelectedGiftId(null)
-            }
-            // user info is OK
-            else {
-                setPopup(<ConfirmForm handleSendEmailConfirm={handleSendEmailConfirm} />)
-                setAppState(2);
-            }
-        }
+            try {
+                const res =  await axios.post(`http://localhost:5029/api/Wheel/spin-wheel?fullname=${userInfo.fullName}&phone=${userInfo.phoneNumber}&email=${userInfo.email}`)
+                console.log(res.data);
 
+                const data = res.data
+                // ERROR
+                if (data?.message) { 
+                    setPopup(<Notification title="Lỗi" content={data?.message} />)
+                    setAppState(0);
+                    setSelectedGiftId(null)
+                }
+                // user info is OK
+                else {
+                    setPopup(
+                        <ConfirmForm  
+                            gift={data}
+                            handleSendEmailConfirm={handleSendEmailConfirm} />
+                        )
+                    setAppState(2);
+                }
+            } catch(err) {
+                console.log({ err })
+
+            }
+
+            // let data = await handleSubmitData();
+            // console.log(data); // undefined
+
+            
+        }
         else {
             setPopup(<Notification title="Bạn đã hết lượt chơi game" content="Cảm ơn bạn đã tham gia" />)
         }
@@ -66,21 +81,31 @@ export default function App() {
     }
 
     async function handleSubmitData() {
-        setPopup(<Spinner />)
-        let data = await createUser({
-            "fullname": userInfo.fullName,
-            "phone": userInfo.phoneNumber,
-            "email": userInfo.email,
-        });
+        setPopup(<Spinner />);
 
-        return data?.message;
+        // return createUser({
+        //     "fullname": userInfo.fullName,
+        //     "phone": userInfo.phoneNumber,
+        //     "email": userInfo.email,
+        // }); 
+
+        return await fetch(`http://localhost:5029/api/Wheel/spin-wheel?fullname=${userInfo.fullName}&phone=${userInfo.phoneNumber}&email=${userInfo.email}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
     }
 
     async function handleSendEmailConfirm() {
         setPopup(false);
         setPopup(<Spinner />)
         const response = await sendMail(userInfo.phoneNumber);
-        console.log(response)
+
         if (response?.message)
             setTimeout(() => setPopup(<Notification title="Thông báo" content={response?.message} />))
     }
