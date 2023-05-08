@@ -15,12 +15,33 @@ export default function UserInfoForm({
         email: null,
     })
 
+    function handleChangePhone(e) {
+        const value = e.target.value;
+
+       
+        setErrors({
+            ...errors,
+            phoneNumber: null,
+        });
+
+        if (/^\d{0,11}$/.test(value))
+            setUserInfo({
+                ...userInfo,
+                phoneNumber: value,
+            });
+    }
+
     function handleChangeInfo(e) {
         const key = e.target.name;
 
         setUserInfo({
             ...userInfo,
             [key]: e.target.value,
+        });
+
+        setErrors({
+            ...errors,
+            [key]: null,
         })
     }
 
@@ -72,9 +93,8 @@ export default function UserInfoForm({
 
                  <Input
                     name="phoneNumber"
-                    placeholder="Nhập số điện thoại"
-                    type="number"
-                    handleChangeInfo={handleChangeInfo}
+                    placeholder="Nhập số điện thoại" 
+                    handleChangeInfo={handleChangePhone}
                     value={userInfo.phoneNumber}
                     error={errors.phoneNumber}
                 />

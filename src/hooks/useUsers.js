@@ -18,7 +18,6 @@ export default function useUsers({
 
         fetchUsers();
 
-
         return () => ignore = true;
     }, [state]);
 
