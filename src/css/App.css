@@ -1,12 +1,23 @@
 .w-140 {
     width: 35rem;
 }
+
+.max-w-screen {
+    max-width: 98vw;
+}
 .w-150 {
     width: 37.5rem;
 }
 
 .w-180 {
     width: 45rem;
+}
+
+@media (min-width: 480px) {
+    .md-e-140 {
+        width: 35rem !important;
+        max-width: 98vw;
+    }
 }
 
 .transition-4 {
