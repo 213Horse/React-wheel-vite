@@ -3,7 +3,7 @@ export default function PopupWrapper({
     children
 }) {
     return (
-        <div className="fixed inset-0 ">
+        <div className="fixed inset-0 z-50">
             <div className="h-full w-full bg-black opacity-80 animation-fade-in" onClick={handleTurnOff} />
             
             <div className="p-5 absolute top-1/2 left-1/2 animation-zoom-in border-2 border-white rounded-2xl bg-red">

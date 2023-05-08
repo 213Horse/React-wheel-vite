@@ -9,14 +9,15 @@ export default function useUsers({
     useEffect(() => {
         let ignore = false;
 
-        async function fetchUsers() {
+        async function fetchUsers() { 
             const data = await fetchClosestUsers();
 
             if (!ignore)
-                setUsers(data);
+                setUsers(data); 
         }
 
         fetchUsers();
+
 
         return () => ignore = true;
     }, [state]);

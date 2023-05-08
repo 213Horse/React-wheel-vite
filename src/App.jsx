@@ -12,7 +12,6 @@ import useUsers from './hooks/useUsers';
 import ShowUsersButton from './components/ShowUsersButton';
 import Spinner from './components/Spinner';
 import UserList from './components/UserList';
-import FlipCard from './components/FlipCard';
 
 
 export default function App() {
@@ -88,7 +87,6 @@ export default function App() {
 
     function handleShowUsers() {
         setPopup(<UserList users={users} />);
-        // setPopup(<FlipCard />);
     }
 
     return (
@@ -105,12 +103,11 @@ export default function App() {
                 <section>
                     {
                         appState == 2 && users &&
-                        // true &&
                         <ShowUsersButton handleClick={handleShowUsers} />
                     }
                     <Image className="w-150" src="dau-qua.png" />
                     <div className='w-150 px-5 mx-auto '>
-                        <div className="flex flex-wrap py-5 bg-white" key={popup}>
+                        <div className="flex flex-wrap py-5 bg-white" >
                         {
                             [1, 2, 3, 4, 5, 6, 7, 8, 9].map(item => 
                                 <Gift
