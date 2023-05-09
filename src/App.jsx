@@ -12,15 +12,12 @@ import useUsers from './hooks/useUsers';
 import ShowUsersButton from './components/ShowUsersButton';
 import Spinner from './components/Spinner';
 import UserList from './components/UserList';
-import axios from 'axios';
-
 
 export default function App() {
     const [appState, setAppState] = useState(0); // init --> gotData --> sentEmail
     const [popup, setPopup] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [selectedGiftId, setSelectedGiftId] = useState(null);
-    const users = useUsers(appState);
 
     async function onGiftClick(giftId) {
         if (appState == 0) {
@@ -88,7 +85,7 @@ export default function App() {
     }
 
     function handleShowUsers() {
-        setPopup(<UserList users={users} />);
+        setPopup(<UserList />);
     }
 
     return (
@@ -104,7 +101,7 @@ export default function App() {
             <main className="w-180 mx-auto py-5 bg-blue-300">
                 <section>
                     {
-                        appState == 2 && users &&
+                        appState == 2 &&
                         <ShowUsersButton handleClick={handleShowUsers} />
                     }
                     <Image className="w-150" src="dau-qua.png" />

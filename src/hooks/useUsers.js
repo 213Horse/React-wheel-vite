@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import fetchClosestUsers from '../services/fetchTwentyClosestUsers';
 
-export default function useUsers({
-    state,
-}) {
+export default function useUsers() {
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
@@ -19,7 +17,7 @@ export default function useUsers({
         fetchUsers();
 
         return () => ignore = true;
-    }, [state]);
+    });
 
     return users;
 }
