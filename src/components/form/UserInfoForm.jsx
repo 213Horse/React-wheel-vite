@@ -138,7 +138,7 @@ function Input({
                 onChange={handleChangeInfo}
                 value={value}
             />
-            {error && <p className="text-center text-yellow-400">{error}</p>}
+            {error && <p className="text-center -mt-4 text-yellow-400">{error}</p>}
         </>
     )
 }
