@@ -69,13 +69,26 @@
     transform: rotateY(180deg);
 }
 
-.animation-flip {
-    animation: flip 0.8s 1 forwards;
+.animation-flip-to-right {
+    animation: flip-to-right 0.8s 1 forwards;
 }
 
-@keyframes flip {
+@keyframes flip-to-right {
     to {
         transform: rotateY(180deg);
+    }
+}
+
+.animation-flip-to-left {
+    animation: flip-to-left 0.8s 1 forwards;
+}
+
+@keyframes flip-to-left {
+    from {
+        transform: rotateY(180deg);
+    }
+    to {
+        transform: rotateY(0);
     }
 }
 

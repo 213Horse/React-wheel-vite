@@ -108,7 +108,8 @@ export default function App() {
                                     key={item}
                                     id={item}
                                     isSelected={item == selectedGiftId}
-                                    handleClickGift={handleClickGift} />
+                                    handleClickGift={handleClickGift}
+                                    state={state} />
                             ) 
                         }
                     </div>
