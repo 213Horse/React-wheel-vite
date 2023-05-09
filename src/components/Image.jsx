@@ -4,8 +4,8 @@ export default function Image({
     alt,
 }) {
     return (
-        <div className={className + " overflow-hidden mx-auto"}>
-            <img className="overflow-hidden" src={src} alt={alt} />
+        <div className={className + " mx-auto"}>
+            <img src={src} alt={alt} />
         </div>
     )
 }
