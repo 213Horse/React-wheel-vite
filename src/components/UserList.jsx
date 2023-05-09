@@ -1,24 +1,37 @@
-import useUsers from "../hooks/useUsers";
+import useUsers from '../hooks/useUsers';
+import PopupFrame from "./popup/PopupFrame";
 
-export default function UserList() {
+export default function UserList({
+    handleTurnOffPopup
+}) {
     const users = useUsers();
+    function dateFormatter(data) {
+        const arr = data.slice(0,10).split('-').reverse();
+
+        return arr.join('-')
+    }
     return (
-        <>
-            <h3 className="text-2xl text-center font-extrabold text-yellow-200">Danh sách trúng thưởng</h3>
-            <section className="mt-4 w-96 md-e-140 px-3 divide-y-2 rounded-md max-h-100 bg-white">
-            {
-                users && users.map(user => 
-                    <div className="w-full h-12 px-2 items-center grid grid-cols-4">
-                        <span className="col-span-1">{user.phone}</span>
-                        <span className="col-span-1">{user.fullName}</span>
-                        <span className="col-span-1">{user.gift}</span>
-                        <span className="col-span-1">{user.spinnedDate.slice(0,10)}</span>
-                    </div>    
-                )
-            }
+        <PopupFrame size="lg" handleTurnOffPopup={handleTurnOffPopup}>
+            <h4 className="text-yellow-300 text-xl sm:text-2xl text-center font-extrabold">Danh sách trúng thưởng</h4>
+            <section className='mt-3 w-full   text-xs sm:text-sm'>
+                <div className='w-full h-10 bg-yellow-300 grid grid-cols-3 justify-items-center items-center rounded-tl-md rounded-tr-md shadow-lg'>
+                    <div>Thời gian</div>
+                    <div>Họ và tên</div>
+                    <div>Số điện thoại</div>
+                </div>
+                <div className='max-h-96 overflow-y-scroll'>
+                {
+                    users &&
+                    users.map(user =>
+                        <div className='w-full h-10 grid grid-cols-3 justify-items-center items-center bg-white'>
+                            <div>{dateFormatter(user.spinnedDate)}</div>
+                            <div>{user.fullName}</div>
+                            <div>{user.phone}</div>
+                        </div>
+                    )
+                }
+                </div>
             </section>
-        </>
+        </PopupFrame>
     )
 }
-
- 
