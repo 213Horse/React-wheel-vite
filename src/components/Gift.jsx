@@ -6,8 +6,10 @@ export default function Gift({
     id,
     isSelected,
 }) {
+    // const [isFliped, setIsFliped] = useState(false);
     const [voucherSrc,setVoucherSrc] = useState("voucher-200.png");
     async function handleClick() {
+
         const res = await handleClickGift(id);
 
         if (res) {
@@ -34,7 +36,6 @@ export default function Gift({
                 <div className="backface-hidden rotate-y-180 absolute w-full h-full">
                     <Image src={voucherSrc} />
                 </div>
-
             </div>
         </section>
     )
