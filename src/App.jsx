@@ -34,11 +34,9 @@ export default function App() {
             if (selectedGiftId == null)
                 setSelectedGiftId(giftId);
 
-            try {
-                const res =  await axios.post(`http://localhost:5029/api/Wheel/spin-wheel?fullname=${userInfo.fullName}&phone=${userInfo.phoneNumber}&email=${userInfo.email}`)
-                console.log(res.data);
-
-                const data = res.data
+            try { 
+                const res = await handleSubmitData();
+                const data = res.data;
                 // ERROR
                 if (data?.message) { 
                     setPopup(<Notification title="Lỗi" content={data?.message} />)
@@ -56,13 +54,7 @@ export default function App() {
                 }
             } catch(err) {
                 console.log({ err })
-
             }
-
-            // let data = await handleSubmitData();
-            // console.log(data); // undefined
-
-            
         }
         else {
             setPopup(<Notification title="Bạn đã hết lượt chơi game" content="Cảm ơn bạn đã tham gia" />)
@@ -82,23 +74,8 @@ export default function App() {
 
     async function handleSubmitData() {
         setPopup(<Spinner />);
-
-        // return createUser({
-        //     "fullname": userInfo.fullName,
-        //     "phone": userInfo.phoneNumber,
-        //     "email": userInfo.email,
-        // }); 
-
-        return await fetch(`http://localhost:5029/api/Wheel/spin-wheel?fullname=${userInfo.fullName}&phone=${userInfo.phoneNumber}&email=${userInfo.email}`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
+        const res = await createUser(userInfo);
+        return res;
     }
 
     async function handleSendEmailConfirm() {
@@ -146,25 +123,15 @@ export default function App() {
                         </div>
                     </div>
                 </section>
-
-                <section className='mt-16'>
-                    <Image className="w-56" src="danh-sach.png" />
-                    <a 
-                        href=''
-                        className='block w-180 overflow-hidden'
-                    >
-                        <Image className="w-full" src="voucher.png" />
-                    </a>
-                </section>
-
-                <section className='mt-16'>
-                    <Image className="w-64" src="theo-doi.png" />
-
-                    <div className="mt-5 mb-2 flex gap-5 justify-center">
-                        <a className='w-16' href=""><Image className="w-full" src="fb.png" /></a>
-                        <a className='w-16' href=""><Image className="w-full" src="ytb.png" /></a>
-                        <a className='w-16' href=""><Image className="w-full" src="linkedin.png" /></a>
-                    </div>
+                <section>
+                    <Image className="mt-12 w-1/3" src="danh-sach.png" />
+                    <Image className="w-full" src="voucher-01.png" />
+                    <Image className="mt-5 w-2/5" src="theo-doi.png" />
+                    <section className='mt-5 sm:mt-8 w-full flex justify-center items-center gap-4'>
+                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-blue-800 text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-facebook"></i></a>
+                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-red-600 text-5xl  sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-youtube"></i></a>
+                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-linkedin-color text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-linkedin"></i></a>
+                    </section>
                 </section>
             </main>
         </div>

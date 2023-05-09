@@ -29,7 +29,6 @@ export default function Gift({
                                 <p>Bạn đã trúng</p>
                                 <p className="mt-2 font-bold text-yellow-200">VOUCHER</p>
                                 <p className="font-extrabold text-yellow-200">200.000 VNĐ</p>
-
                             </div>
                         </div>
                     </div>

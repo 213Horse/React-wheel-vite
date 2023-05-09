@@ -8,5 +8,12 @@ export default {
     extend: {},
   },
   plugins: [],
+  theme: {
+    extend: {
+      aspectRatio: {
+        '4/5': '4 / 5'
+      }
+    }
+  }
 }
 
