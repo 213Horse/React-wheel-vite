@@ -97,7 +97,7 @@ export default function App() {
         <div className={"w-screen overflow-x-hidden"}>
             { popup && <PopupWrapper handleTurnOffPopup={handleTurnOffPopup}>{popup}</PopupWrapper>}
             <main className="w-full max-w-160 mx-auto pt-6 pb-8 sm:pb-12 bg-blue-300">
-                {state === 'sentMail' || state ==='sentUserData' && <ShowUsersButton handleClick={() => setPopup(<UserList handleTurnOffPopup={handleTurnOffPopup}/>)}/>}
+                {(state === 'sentMail' || state ==='sentUserData') && <ShowUsersButton handleClick={() => setPopup(<UserList handleTurnOffPopup={handleTurnOffPopup}/>)}/>}
                 {/* Gift boxes here  */}
                 <Image className="w-10/12" src="dau-qua.png" />
                 <section className="w-9/12 mx-auto p-1 sm:p-2 bg-white">
