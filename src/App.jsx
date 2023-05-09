@@ -31,9 +31,10 @@ export default function App() {
             if (selectedGiftId == null)
                 setSelectedGiftId(giftId);
 
+            let data;
             try { 
                 const res = await handleSubmitData();
-                const data = res.data;
+                data = res.data;
                 // ERROR
                 if (data?.message) { 
                     setPopup(<Notification title="Lỗi" content={data?.message} />)
@@ -48,10 +49,12 @@ export default function App() {
                             handleSendEmailConfirm={handleSendEmailConfirm} />
                         )
                     setAppState(2);
+
                 }
             } catch(err) {
                 console.log({ err })
             }
+            return data;
         }
         else {
             setPopup(<Notification title="Bạn đã hết lượt chơi game" content="Cảm ơn bạn đã tham gia" />)
