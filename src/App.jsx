@@ -69,7 +69,6 @@ export default function App() {
         setTimeout(() => {
             setPopup(<Notification title="Đã lưu thông tin người nhận" content="Chọn 1 hộp quà bất kỳ" />)
         }, 300);
-
     }
 
     async function handleSubmitData() {
@@ -128,9 +127,9 @@ export default function App() {
                     <Image className="w-full" src="voucher-01.png" />
                     <Image className="mt-5 w-2/5" src="theo-doi.png" />
                     <section className='mt-5 sm:mt-8 w-full flex justify-center items-center gap-4'>
-                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-blue-800 text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-facebook"></i></a>
-                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-red-600 text-5xl  sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-youtube"></i></a>
-                        <a href="" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-linkedin-color text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/bsmart.edu.vn" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-blue-800 text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/channel/UCxuIkuRJkam2Ii3xPehiirw" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-red-600 text-5xl  sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/company/amazingtech74/" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-linkedin-color text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-linkedin"></i></a>
                     </section>
                 </section>
             </main>

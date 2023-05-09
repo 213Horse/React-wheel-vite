@@ -2,10 +2,6 @@
     width: 35rem;
 }
 
-.max-w-screen {
-    max-width: 98vw;
-}
-
 .w-150 {
     width: 37.5rem;
 }
@@ -13,6 +9,27 @@
 .w-180 {
     width: 45rem;
 }
+
+.w-90vw {
+    width: 90vw;
+}
+
+.max-w-80 {
+    max-width: 20rem;
+}
+
+.max-w-100 {
+    max-width: 25rem;
+}
+
+.max-w-120 {
+    max-width: 30rem;
+}
+
+.max-w-screen {
+    max-width: 98vw;
+}
+
 
 @media (min-width: 480px) {
     .md-e-140 {
@@ -30,6 +47,10 @@
     max-width: 40rem;
 }
 
+.scrollbar-hidden {
+    height: 100vh;
+    overflow-y: hidden;
+}
 
 /* ====== ANIMATION ====== */
 .perspective {
@@ -90,9 +111,15 @@
 .bg-red {
     background-color: #c0392b;
 }
+
 .text-red {
     color: #c0392b;
 }
+
 .text-linkedin-color {
     color: #0077B5;
+}
+
+.bg-black-opacity {
+    background-color: rgba(0, 0, 0, 0.85);
 }

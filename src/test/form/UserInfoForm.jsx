@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useState } from "react";
+import PopupFrame from "../popup/PopupFrame";
 
 export default function UserInfoForm({
-    handleFetchData,
+    handleFetchUserInfo,
+    handleTurnOffPopup,
 }) {
     const [userInfo, setUserInfo] = useState({
         fullName: "",
@@ -12,11 +14,10 @@ export default function UserInfoForm({
         fullName: null,
         phoneNumber: null,
         email: null,
-    })
+    });
 
     function handleChangePhone(e) {
         const value = e.target.value;
-
        
         setErrors({
             ...errors,
@@ -28,38 +29,6 @@ export default function UserInfoForm({
                 ...userInfo,
                 phoneNumber: value,
             });
-
-        // let input = e.target.value;
-        // input = input.replace(/\D/g, ""); // Remove all non-digit characters
-
-        // // Format the phone number
-        // let formattedPhoneNumber = "";
-
-        // if (input.length > 0) {
-        //     formattedPhoneNumber = "+";
-
-        // if (input.length > 3) {
-        //     formattedPhoneNumber += input.slice(0, 3) + " ";
-        //     input = input.slice(3);
-        // }
-
-        // if (input.length > 3) {
-        //     formattedPhoneNumber += "(" + input.slice(0, 3) + ") ";
-        //     input = input.slice(3);
-        // }
-
-        // if (input.length > 2) {
-        //     formattedPhoneNumber += input.slice(0, 2) + " ";
-        //     input = input.slice(2);
-        // }
-
-        // formattedPhoneNumber += input;
-        // }
-
-        // setUserInfo({
-        //     ...userInfo,
-        //     phoneNumber: formattedPhoneNumber,
-        // });
     }
 
     function handleChangeInfo(e) {
@@ -102,18 +71,19 @@ export default function UserInfoForm({
         return !(fullNameError || phoneNumberError || emailError);
     }
 
-    function handleClickSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         if (validateInfo()) {
-            handleFetchData(userInfo);
+            handleFetchUserInfo(userInfo);
         }
     }
 
-    return (
-        <form className="w-96 flex flex-col pt-5 pb-3">
-            <h3 className='w-72 mx-auto font-extrabold text-center text-2xl text-white'>ĐĂNG KÝ THÔNG TIN THAM GIA</h3>
+    
 
-            <div className="w-72 mt-8 mx-auto flex flex-col gap-4">
+    return (
+        <PopupFrame size="sm" handleTurnOffPopup={handleTurnOffPopup}>
+            <h4 className="text-yellow-300 text-xl sm:text-2xl text-center font-extrabold">Đăng ký thông tin tham gia</h4>
+            <form className="mt-4 pb-3 sm:py-5 w-full flex flex-col gap-4">
                 <Input
                     name="fullName"
                     placeholder="Nhập họ tên"
@@ -138,15 +108,13 @@ export default function UserInfoForm({
                     value={userInfo.email}
                     error={errors.email}
                 />
-
-                <button 
-                    className="w-full h-10 bg-yellow-300 text-red-700 font-extrabold rounded-xl hover:bg-yellow-200 transition-4"
-                    onClick={handleClickSubmit}
-                >
-                    THAM GIA NGAY
+                <button
+                    onClick={handleSubmit}
+                    className="mt-3 w-full max-w-80 mx-auto h-10 text-center rounded-lg bg-yellow-300 font-bold text-red-700">
+                    Tham gia ngay
                 </button>
-            </div>
-        </form>
+            </form>
+        </PopupFrame>
     )
 }
 
@@ -157,21 +125,20 @@ function Input({
     handleChangeInfo,
     value,
     error,
-}) {
-    const errorClass = error ? " border-2 border-yellow-400" : " ";
-
+}) { 
+    const inputClassName = "w-full max-w-80 mx-auto h-9 text-center rounded-lg"
     return (
-        <div>
+        <>
+        
             <input
                 name={name}
-                className={"input-component w-full h-10 rounded-xl px-3 text-center " + errorClass}
+                className={inputClassName}
                 placeholder={placeholder}
                 type={type}
-
                 onChange={handleChangeInfo}
                 value={value}
             />
             {error && <p className="text-center text-yellow-400">{error}</p>}
-        </div>
+        </>
     )
 }
