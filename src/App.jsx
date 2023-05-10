@@ -3,7 +3,8 @@ import Image from "./components/Image"
 import Gift from './components/Gift'
 import PopupWrapper from './components/popup/PopupWrapper'
 import { useRef, useState } from 'react';
-import UserInfoForm from './components/form/UserInfoForm';
+import UserInfoForm from './components/form/UserInfoForm.test';
+// import UserInfoForm from './components/form/UserInfoForm';
 import Notification from './components/popup/Notification';
 import ConfirmForm from './components/form/ConfirmForm';
 import UserList from './components/UserList';
