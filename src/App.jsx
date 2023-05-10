@@ -31,8 +31,7 @@ export default function App() {
             );
         }
         else if (state === 'gotUserData') {
-            if (selectedGiftId == null)
-                setSelectedGiftId(giftId);
+            
             
             setPopup(<Spinner />)
             const res = await createUser(userInfo);
@@ -52,6 +51,8 @@ export default function App() {
                         handleSendEmailConfirm={handleSendEmailConfirm}
                         handleTurnOffPopup={handleTurnOffPopup} />
                     )
+                if (selectedGiftId == null)
+                    setSelectedGiftId(giftId);
                 setState('sentUserData');
             }
 
@@ -123,7 +124,7 @@ export default function App() {
                 {/* App bottom  */}
                 <section>
                     <Image className="mt-12 w-1/3" src="danh-sach.png" />
-                    <Image className="w-full" src="voucher-01.png" />
+                    <Image className="w-full" src="list.png" />
                     <Image className="mt-5 w-2/5" src="theo-doi.png" />
                     <section className='mt-5 sm:mt-8 w-full flex justify-center items-center gap-4'>
                         <a target='_blank' href="https://www.facebook.com/bsmart.edu.vn" className='flex justify-center items-center w-1/6 aspect-square bg-white rounded-full transition-4 text-blue-800 text-5xl sm:text-7xl hover:scale-110 transition-4'><i className="fa-brands fa-facebook"></i></a>
