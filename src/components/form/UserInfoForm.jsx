@@ -47,7 +47,7 @@ export default function UserInfoForm({
 
     function validateInfo() {
         const fullNameRegex = /^[\p{L}\p{M}'\-]+(?:\s[\p{L}\p{M}'\-]+)*$/u;
-        const emailRegex = /^\S+@\S+\.\S+$/;        
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;        
 
         let fullNameError = null;
         let phoneNumberError = null;
