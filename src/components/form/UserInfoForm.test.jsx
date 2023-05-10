@@ -16,7 +16,7 @@ export default function UserInfoForm({
         email: null,
     });
     const regexValidation = {
-        fullName: /^[a-zA-Z\s\u00C0-\u1EF9]*$/,
+        fullName: /^[a-zA-Z\s\u00C0-\u1EF9]{2,}$/,
         phoneNumber: /^\d[03|05|07|08|09]\s?\d{8}$/,
         email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     }
