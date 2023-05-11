@@ -16,12 +16,12 @@ export default function UserInfoForm({
         email: null,
     });
     const regexValidation = {
-        fullName: /^[a-zA-Z\s\u00C0-\u1EF9]{2,}$/, 
+        fullName: /^\s*\S.{0,}\S\s*$/, 
         phoneNumber: /^\d[03|05|07|08|09]\s?\d{8}$/,
         email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     }
     const regexTyping = {
-        fullName: /^[a-zA-Z\s\u00C0-\u1EF9]*$/,
+        fullName: /^.{0,}$/,
         phoneNumber: /^\d{0,10}$/,
         email: /.{0,}$/,
     }
