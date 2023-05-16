@@ -4,6 +4,7 @@ import PopupFrame from "../popup/PopupFrame";
 export default function UserInfoForm({
     handleFetchUserInfo,
     handleTurnOffPopup,
+    turnOffDisabled,
 }) {
     const [userInfo, setUserInfo] = useState({
         fullName: "",
@@ -83,7 +84,7 @@ export default function UserInfoForm({
     }
 
     return (
-        <PopupFrame size="sm" handleTurnOffPopup={handleTurnOffPopup}>
+        <PopupFrame size="sm" handleTurnOffPopup={handleTurnOffPopup} turnOffDisabled={turnOffDisabled}>
             <h4 className="text-yellow-300 text-xl sm:text-2xl text-center font-extrabold">Đăng ký thông tin tham gia</h4>
             <form className="mt-4 pb-3 sm:py-5 w-full flex flex-col gap-4">
                 <Input

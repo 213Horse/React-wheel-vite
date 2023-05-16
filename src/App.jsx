@@ -2,7 +2,7 @@ import './css/App.css'
 import Image from "./components/Image"
 import Gift from './components/Gift'
 import PopupWrapper from './components/popup/PopupWrapper'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import UserInfoForm from './components/form/UserInfoForm.test';
 // import UserInfoForm from './components/form/UserInfoForm';
 import Notification from './components/popup/Notification';
@@ -20,6 +20,8 @@ export default function App() {
     const [userInfo, setUserInfo] = useState(null);
     const [selectedGiftId, setSelectedGiftId] = useState(null);
     const giftRef = useRef('Khởi tạo dữ liệu');
+    const [turnOffDisabled, setTurnOffDisabled] = useState(false);
+
 
     async function handleClickGift(giftId) {
 
@@ -75,10 +77,12 @@ export default function App() {
         setUserInfo(nextUserInfo);
         setPopup(false);
         setState('gotUserData');
+        setTurnOffDisabled(false);
         setTimeout(() => {
             setPopup(<Notification title="Đã lưu thông tin người nhận" handleTurnOffPopup={handleTurnOffPopup} content="Chọn 1 hộp quà bất kỳ" />)
         }, 300);
     } 
+
     async function handleSendEmailConfirm() {
         setPopup(false);
         setPopup(<Spinner />)
@@ -93,11 +97,25 @@ export default function App() {
         setPopup(null);
     }
 
+    useEffect(() => {
+        if (state == 'init') {
+            setTimeout(() => {
+                setPopup(
+                    <UserInfoForm 
+                        handleFetchUserInfo={handleFetchUserInfo}
+                        handleTurnOffPopup={handleTurnOffPopup}
+                        turnOffDisabled={true}/>
+                );
+            }, 500);
 
+            setTurnOffDisabled(true);
+        }
+            
+    }, [state]);
 
     return (
         <div className={"w-screen overflow-x-hidden"}>
-            { popup && <PopupWrapper handleTurnOffPopup={handleTurnOffPopup}>{popup}</PopupWrapper>}
+            { popup && <PopupWrapper handleTurnOffPopup={handleTurnOffPopup} turnOffDisabled={turnOffDisabled}>{popup}</PopupWrapper>}
             <main className="w-full max-w-160 mx-auto pt-6 pb-8 sm:pb-12 bg-blue-300">
                 <Image className="w-80" src="icon-logo.png" />
                 <Image className="mt-12 mb-4 w-2/3" src="claim-7.png" />

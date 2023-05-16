@@ -1,6 +1,7 @@
 export default function PopupFrame({
     size = 'md',
     handleTurnOffPopup,
+    turnOffDisabled,
     children,
 }) {
     let className = "mx-auto w-90vw bg-red rounded-lg border-2 border-white";
@@ -11,10 +12,15 @@ export default function PopupFrame({
     else if (size == 'sm')
         className += ' max-w-100';
 
+    function handleClick() {
+        if (!turnOffDisabled)
+            handleTurnOffPopup();
+    }
+
     return (
         <main className={className}>
             <div className="pt-2 pr-3 text-white cursor-pointer flex justify-end">
-                <div onClick={handleTurnOffPopup}><i className="fa-solid fa-xmark fa-lg"></i></div>
+                <div onClick={handleClick}><i className="fa-solid fa-xmark fa-lg"></i></div>
             </div>
             <div className="px-3 py-2">
                 {children}
