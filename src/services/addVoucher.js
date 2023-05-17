@@ -12,4 +12,4 @@ export default async function addVoucher(voucherCode, price) {
         })
         .then(response => response.json())
         .catch(error => console.log(error));
-}
+} 

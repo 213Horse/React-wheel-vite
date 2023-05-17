@@ -21,11 +21,10 @@ export default function App() {
     const [userInfo, setUserInfo] = useState(null);
     const [selectedGiftId, setSelectedGiftId] = useState(null);
     const giftRef = useRef('Khởi tạo dữ liệu');
+    const voucherCode = useRef('Khởi tạo dữ liệu');
     const [turnOffDisabled, setTurnOffDisabled] = useState(false);
 
-
     async function handleClickGift(giftId) {
-
         if (state === 'init') {
             setPopup(
                 <UserInfoForm 
@@ -37,7 +36,9 @@ export default function App() {
             setPopup(<Spinner />)
             const res = await createUser(userInfo);
             const data = res.data;
-            giftRef.current = data;
+            giftRef.current = data.gift; // [currently changed]
+            voucherCode.current = data.voucherCode; // [currently changed]
+
             // There is an error
             if (data?.message) { 
                 setPopup(<Notification title="Lỗi" content={data?.message} handleTurnOffPopup={handleTurnOffPopup} />)
@@ -93,8 +94,7 @@ export default function App() {
                 "500.000 VNĐ" == giftRef.current ? 500000 :
                 "800.000 VNĐ" == giftRef.current ? 800000 :
                 300000;
-        await addVoucher( giftRef.current, price); // Doesn't have catch error when fetch failed
-
+        await addVoucher( voucherCode.current, price); // Doesn't catch error yet when fetching failed
 
         // Call API
         const response = await sendMail(userInfo.phoneNumber);
@@ -148,7 +148,6 @@ export default function App() {
                         }
                     </div>
                 </section>
-
 
                 {/* App bottom  */}
                 <section>
