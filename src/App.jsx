@@ -38,7 +38,7 @@ export default function App() {
             const data = res.data;
             giftRef.current = data.gift; // [currently changed]
             voucherCode.current = data.voucherCode; // [currently changed]
-
+          //  console.log(giftRef.current + "   -   " + voucherCode.current);
             // There is an error
             if (data?.message) { 
                 setPopup(<Notification title="Lỗi" content={data?.message} handleTurnOffPopup={handleTurnOffPopup} />)
@@ -49,7 +49,7 @@ export default function App() {
             else {
                 setPopup(
                     <ConfirmForm  
-                        gift={data}
+                        gift={giftRef.current}
                         handleSendEmailConfirm={handleSendEmailConfirm}
                         handleTurnOffPopup={handleTurnOffPopup} />
                     )
@@ -58,7 +58,7 @@ export default function App() {
                 setState('sentUserData');
             }
 
-            return data;
+            return giftRef.current;
         }
         else if ( state === 'sentUserData') {
             setPopup(
@@ -93,7 +93,7 @@ export default function App() {
                 "300.000 VNĐ" == giftRef.current ? 300000 :
                 "500.000 VNĐ" == giftRef.current ? 500000 :
                 "800.000 VNĐ" == giftRef.current ? 800000 :
-                300000;
+                30000;
         await addVoucher( voucherCode.current, price); // Doesn't catch error yet when fetching failed
 
         // Call API

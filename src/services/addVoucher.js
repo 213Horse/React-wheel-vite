@@ -1,9 +1,9 @@
-import root from "./root";
+import { rootBsmart } from "./root";
 
 const passCode = 77496996;
 
 export default async function addVoucher(voucherCode, price) {
-    return await fetch(`${root}/api/Ipn/addVoucher?voucherCode=${voucherCode}&price=${price}&passCode=${passCode}`,
+    return await fetch(`${rootBsmart}/api/Ipn/addVoucher?voucherCode=${voucherCode}&price=${price}&passCode=${passCode}`,
         {
             method: 'POST',
             headers: {
