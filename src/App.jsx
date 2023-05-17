@@ -86,12 +86,18 @@ export default function App() {
         setPopup(false);
         setPopup(<Spinner />);
         
+        // Call API 
+        const price = 
+                "200.000 VNĐ" == giftRef.current ? 200000 :
+                "300.000 VNĐ" == giftRef.current ? 300000 :
+                "500.000 VNĐ" == giftRef.current ? 500000 :
+                "800.000 VNĐ" == giftRef.current ? 800000 :
+                "laha.png";
+        await addVoucher( giftRef.current, price); // Doesn't have catch error when fetch failed
+
+
         // Call API
-        const voucherCode = (+giftRef).current.toLocaleString();
-        let response = await addVoucher( voucherCode, price.current);
-        
-        // Call API
-        response = await sendMail(userInfo.phoneNumber);
+        const response = await sendMail(userInfo.phoneNumber);
         setState('sentMail');
 
         if (response?.message)
