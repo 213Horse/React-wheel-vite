@@ -92,7 +92,7 @@ export default function App() {
                 "300.000 VNĐ" == giftRef.current ? 300000 :
                 "500.000 VNĐ" == giftRef.current ? 500000 :
                 "800.000 VNĐ" == giftRef.current ? 800000 :
-                "laha.png";
+                300000;
         await addVoucher( giftRef.current, price); // Doesn't have catch error when fetch failed
 
 
