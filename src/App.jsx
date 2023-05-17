@@ -87,7 +87,7 @@ export default function App() {
         setPopup(<Spinner />);
         
         // Call API
-        const voucherCode = giftRef.current.toLocaleString();
+        const voucherCode = (+giftRef).current.toLocaleString();
         let response = await addVoucher( voucherCode, price.current);
         
         // Call API

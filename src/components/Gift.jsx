@@ -18,12 +18,22 @@ export default function Gift({
 
         const res = await handleClickGift(id);
 
+        // if (res) {
+        //     let src = 
+        //         "200.000 VNĐ" == res ? "200.png" :
+        //         "300.000 VNĐ" == res ? "300.png" :
+        //         "500.000 VNĐ" == res ? "500.png" :
+        //         "800.000 VNĐ" == res ? "800.png" :
+        //         "laha.png";
+        //     setVoucherSrc(src); 
+        // }
+
         if (res) {
             let src = 
-                "200.000 VNĐ" == res ? "200.png" :
-                "300.000 VNĐ" == res ? "300.png" :
-                "500.000 VNĐ" == res ? "500.png" :
-                "800.000 VNĐ" == res ? "800.png" :
+                "200000" == res ? "200.png" :
+                "300000" == res ? "300.png" :
+                "500000" == res ? "500.png" :
+                "800000" == res ? "800.png" :
                 "laha.png";
             setVoucherSrc(src); 
         }
