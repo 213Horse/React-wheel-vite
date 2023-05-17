@@ -20,7 +20,7 @@ export default function PopupFrame({
     return (
         <main className={className}>
             <div className="pt-2 pr-3 text-white cursor-pointer flex justify-end">
-                <div onClick={handleClick}><i className="fa-solid fa-xmark fa-lg"></i></div>
+                {/* <div onClick={handleClick}><i className="fa-solid fa-xmark fa-lg"></i></div> */}
             </div>
             <div className="px-3 py-2">
                 {children}
