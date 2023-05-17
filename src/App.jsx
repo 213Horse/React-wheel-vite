@@ -12,6 +12,7 @@ import createUser from './services/createUser';
 import ShowUsersButton from './components/ShowUsersButton';
 import Spinner from './components/Spinner';
 import sendMail from './services/sendMail';
+import addVoucher from './services/addVoucher';
 
 export default function App() {
     const [state, setState] = useState('init'); // init --> gotUserData --> sentUserData --> sentMail
@@ -33,13 +34,11 @@ export default function App() {
             );
         }
         else if (state === 'gotUserData') {
-            
-            
             setPopup(<Spinner />)
             const res = await createUser(userInfo);
             const data = res.data;
             giftRef.current = data;
-            // There is a error
+            // There is an error
             if (data?.message) { 
                 setPopup(<Notification title="Lỗi" content={data?.message} handleTurnOffPopup={handleTurnOffPopup} />)
                 setState('init');
@@ -85,8 +84,14 @@ export default function App() {
 
     async function handleSendEmailConfirm() {
         setPopup(false);
-        setPopup(<Spinner />)
-        const response = await sendMail(userInfo.phoneNumber);
+        setPopup(<Spinner />);
+        
+        // Call API
+        const voucherCode = giftRef.current.toLocaleString();
+        let response = await addVoucher( voucherCode, price.current);
+        
+        // Call API
+        response = await sendMail(userInfo.phoneNumber);
         setState('sentMail');
 
         if (response?.message)
