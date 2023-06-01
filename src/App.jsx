@@ -13,6 +13,7 @@ import ShowUsersButton from './components/ShowUsersButton';
 import Spinner from './components/Spinner';
 import sendMail from './services/sendMail';
 import addVoucher from './services/addVoucher';
+const SITE_KEY = "6LcDWTQlAAAAAKc32Bfp6IrAh2I5iPPVH94XzoEP";
 
 export default function App() {
     const [state, setState] = useState('init'); // init --> gotUserData --> sentUserData --> sentMail
@@ -24,12 +25,40 @@ export default function App() {
     const voucherCode = useRef('Khởi tạo dữ liệu');
     const [turnOffDisabled, setTurnOffDisabled] = useState(false);
 
+    /**
+     * 
+     *! embedded recapCha-v3 to page 
+    */
+    useEffect(() => {
+        const loadScriptByURL = (id, url, callback) => {
+            const isScriptExist = document.getElementById(id);
+
+            if (!isScriptExist) {
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = url;
+                script.id = id;
+                script.onload = function () {
+                    if (callback) callback();
+                };
+                document.body.appendChild(script);
+            }
+
+            if (isScriptExist && callback) callback();
+        }
+
+        // load the script by passing the URL
+        loadScriptByURL("recaptcha-key", `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`, function () {
+            console.log("Script recapCha-v3 loaded!");
+        });
+    }, []);
+
     async function handleClickGift(giftId) {
         if (state === 'init') {
             setPopup(
-                <UserInfoForm 
+                <UserInfoForm
                     handleFetchUserInfo={handleFetchUserInfo}
-                    handleTurnOffPopup={handleTurnOffPopup}/>
+                    handleTurnOffPopup={handleTurnOffPopup} />
             );
         }
         else if (state === 'gotUserData') {
@@ -38,9 +67,9 @@ export default function App() {
             const data = res.data;
             giftRef.current = data.gift; // [currently changed]
             voucherCode.current = data.voucherCode; // [currently changed]
-          //  console.log(giftRef.current + "   -   " + voucherCode.current);
+            //  console.log(giftRef.current + "   -   " + voucherCode.current);
             // There is an error
-            if (data?.message) { 
+            if (data?.message) {
                 setPopup(<Notification title="Lỗi" content={data?.message} handleTurnOffPopup={handleTurnOffPopup} />)
                 setState('init');
                 setSelectedGiftId(null)
@@ -48,11 +77,11 @@ export default function App() {
             // No error
             else {
                 setPopup(
-                    <ConfirmForm  
+                    <ConfirmForm
                         gift={giftRef.current}
                         handleSendEmailConfirm={handleSendEmailConfirm}
                         handleTurnOffPopup={handleTurnOffPopup} />
-                    )
+                )
                 if (selectedGiftId == null)
                     setSelectedGiftId(giftId);
                 setState('sentUserData');
@@ -60,13 +89,13 @@ export default function App() {
 
             return giftRef.current;
         }
-        else if ( state === 'sentUserData') {
+        else if (state === 'sentUserData') {
             setPopup(
-                <ConfirmForm  
+                <ConfirmForm
                     gift={giftRef.current}
                     handleSendEmailConfirm={handleSendEmailConfirm}
                     handleTurnOffPopup={handleTurnOffPopup} />
-                )
+            )
         }
         else if (state === 'sentMail') {
             setPopup(<Notification handleTurnOffPopup={handleTurnOffPopup} title="Bạn đã hết lượt chơi game" content="Cảm ơn bạn đã tham gia" />)
@@ -81,20 +110,20 @@ export default function App() {
         setTimeout(() => {
             setPopup(<Notification title="Đã lưu thông tin người nhận" handleTurnOffPopup={handleTurnOffPopup} content="Chọn 1 hộp quà bất kỳ" />)
         }, 300);
-    } 
+    }
 
     async function handleSendEmailConfirm() {
         setPopup(false);
         setPopup(<Spinner />);
-        
+
         // Call API 
-        const price = 
-                "200.000 VNĐ" == giftRef.current ? 200000 :
+        const price =
+            "200.000 VNĐ" == giftRef.current ? 200000 :
                 "300.000 VNĐ" == giftRef.current ? 300000 :
-                "500.000 VNĐ" == giftRef.current ? 500000 :
-                "800.000 VNĐ" == giftRef.current ? 800000 :
-                30000;
-        await addVoucher( voucherCode.current, price); // Doesn't catch error yet when fetching failed
+                    "500.000 VNĐ" == giftRef.current ? 500000 :
+                        "800.000 VNĐ" == giftRef.current ? 800000 :
+                            30000;
+        await addVoucher(voucherCode.current, price); // Doesn't catch error yet when fetching failed
 
         // Call API
         const response = await sendMail(userInfo.phoneNumber);
@@ -112,39 +141,39 @@ export default function App() {
         if (state == 'init') {
             setTimeout(() => {
                 setPopup(
-                    <UserInfoForm 
+                    <UserInfoForm
                         handleFetchUserInfo={handleFetchUserInfo}
                         handleTurnOffPopup={handleTurnOffPopup}
-                        turnOffDisabled={true}/>
+                        turnOffDisabled={true} />
                 );
             }, 500);
 
             setTurnOffDisabled(true);
         }
-            
+
     }, [state]);
 
     return (
         <div className={"w-screen overflow-x-hidden"}>
-            { popup && <PopupWrapper handleTurnOffPopup={handleTurnOffPopup} turnOffDisabled={turnOffDisabled}>{popup}</PopupWrapper>}
+            {popup && <PopupWrapper handleTurnOffPopup={handleTurnOffPopup} turnOffDisabled={turnOffDisabled}>{popup}</PopupWrapper>}
             <main className="w-full max-w-160 mx-auto pt-6 pb-8 sm:pb-12 bg-blue-300">
                 <Image className="w-80" src="icon-logo.png" />
                 <Image className="mt-12 mb-4 w-2/3" src="claim-7.png" />
                 <Image className="mb-4 w-2/3" src="react-removebg-preview.png" />
-                {(state === 'sentMail' || state ==='sentUserData') && <ShowUsersButton handleClick={() => setPopup(<UserList handleTurnOffPopup={handleTurnOffPopup}/>)}/>}
+                {(state === 'sentMail' || state === 'sentUserData') && <ShowUsersButton handleClick={() => setPopup(<UserList handleTurnOffPopup={handleTurnOffPopup} />)} />}
                 {/* Gift boxes here  */}
                 <Image className="w-10/12" src="dau-qua.png" />
                 <section className="w-9/12 mx-auto p-1 sm:p-2 bg-white">
                     <div className='w-full flex flex-wrap'>
                         {
                             [1, 2, 3, 4, 5, 6, 7, 8, 9].map(item =>
-                                <Gift 
+                                <Gift
                                     key={item}
                                     id={item}
                                     isSelected={item == selectedGiftId}
                                     handleClickGift={handleClickGift}
                                     state={state} />
-                            ) 
+                            )
                         }
                     </div>
                 </section>
